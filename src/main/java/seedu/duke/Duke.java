@@ -37,8 +37,12 @@ public class Duke {
     }
 
     private static String getUserInput() {
+        String userInput = null;
         Scanner input = new Scanner(System.in);
-        return input.nextLine();
+        if (input.hasNextLine()) {
+            userInput = input.nextLine();
+        }
+        return userInput;
     }
 
     private static void executeCommand(String userInput) {
