@@ -15,20 +15,20 @@ public class Duke {
     public static void main(String[] args) {
         showWelcomeMessage();
         initProgram();
-        while(!isExit) {
+        while (!isExit) {
             String userInput = getUserInput();
             executeCommand(userInput);
         }
     }
 
     private static void showWelcomeMessage() {
-        System.out.println("\nWelcome to\n" +
-                "    ____  __      _   ____  _______\n" +
-                "   / __ \\/ /___ _/ | / / / / / ___/\n" +
-                "  / /_/ / / __ `/  |/ / / / /\\__ \\ \n" +
-                " / ____/ / /_/ / /|  / /_/ /___/ / \n" +
-                "/_/   /_/\\__,_/_/ |_/\\____//____/  " +
-                "v1.0\n");
+        System.out.println("\nWelcome to\n"
+                + "    ____  __      _   ____  _______\n"
+                + "   / __ \\/ /___ _/ | / / / / / ___/\n"
+                + "  / /_/ / / __ `/  |/ / / / /\\__ \\ \n"
+                + " / ____/ / /_/ / /|  / /_/ /___/ / \n"
+                + "/_/   /_/\\__,_/_/ |_/\\____//____/  "
+                + "v1.0\n");
     }
 
     private static void initProgram() {
@@ -51,13 +51,16 @@ public class Duke {
             break;
         case COMMAND_ADD:
             String commandArgs = commandTypeAndParams[1];
-            AddTask(commandArgs);
+            addTask(commandArgs);
             break;
         case COMMAND_LIST:
             showList();
             break;
         case COMMAND_BYE:
             exitProgram();
+            break;
+        default:
+            showInvalidCommandMessage();
             break;
         }
     }
@@ -74,7 +77,7 @@ public class Duke {
         return userInput.split(" ", 2);
     }
 
-    private static void AddTask(String commandArgs) {
+    private static void addTask(String commandArgs) {
         String description = "";
         String date = "";
         String time = "";
@@ -82,21 +85,24 @@ public class Duke {
         if (commandArgs.contains("d/")) {
             int descriptionEndIndex = commandArgs.indexOf("/") - 2;
             int dateBeginIndex = commandArgs.indexOf("d/") + 2;
-            int dateEndIndex = (commandArgs.substring(dateBeginIndex).contains("/")) ? commandArgs.indexOf("/", dateBeginIndex) - 2 : commandArgs.length();
+            int dateEndIndex = (commandArgs.substring(dateBeginIndex).contains("/"))
+                    ? commandArgs.indexOf("/", dateBeginIndex) - 2 : commandArgs.length();
             description = commandArgs.substring(0, descriptionEndIndex);
             date = commandArgs.substring(dateBeginIndex,dateEndIndex);
         }
         if (commandArgs.contains("t/")) {
             int descriptionEndIndex = commandArgs.indexOf("/") - 2;
             int timeBeginIndex = commandArgs.indexOf("t/") + 2;
-            int timeEndIndex = (commandArgs.substring(timeBeginIndex).contains("/")) ? commandArgs.indexOf("/", timeBeginIndex) - 2 : commandArgs.length();
+            int timeEndIndex = (commandArgs.substring(timeBeginIndex).contains("/"))
+                    ? commandArgs.indexOf("/", timeBeginIndex) - 2 : commandArgs.length();
             description = commandArgs.substring(0, descriptionEndIndex);
             time = commandArgs.substring(timeBeginIndex, timeEndIndex);
         }
         if (commandArgs.contains("p/")) {
             int descriptionEndIndex = commandArgs.indexOf("/") - 2;
             int priorityBeginIndex = commandArgs.indexOf("p/") + 2;
-            int priorityEndIndex = (commandArgs.substring(priorityBeginIndex).contains("/")) ? commandArgs.indexOf("/", priorityBeginIndex) - 2 : commandArgs.length();
+            int priorityEndIndex = (commandArgs.substring(priorityBeginIndex).contains("/"))
+                    ? commandArgs.indexOf("/", priorityBeginIndex) - 2 : commandArgs.length();
             description = commandArgs.substring(0, descriptionEndIndex);
             priority = commandArgs.substring(priorityBeginIndex, priorityEndIndex);
         }
@@ -113,7 +119,7 @@ public class Duke {
     private static void showList() {
         System.out.println("\nHere is your list of tasks:");
         for (Task task : tasks) {
-            System.out.println((tasks.indexOf(task)+1) + ". " + task.toString());
+            System.out.println((tasks.indexOf(task) + 1) + ". " + task.toString());
         }
         System.out.println();
     }
@@ -121,5 +127,9 @@ public class Duke {
     private static void exitProgram() {
         isExit = true;
         System.out.println("\nBye! See you again!");
+    }
+
+    private static void showInvalidCommandMessage() {
+        System.out.println("\nSorry that's not a valid command.\n");
     }
 }
