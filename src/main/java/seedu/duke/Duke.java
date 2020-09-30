@@ -46,26 +46,30 @@ public class Duke {
     }
 
     private static void executeCommand(String userInput) {
-        String[] commandTypeAndParams = splitCommandWordAndArgs(userInput);
-        String commandType = commandTypeAndParams[0];
+        try {
+            String[] commandTypeAndParams = splitCommandWordAndArgs(userInput);
+            String commandType = commandTypeAndParams[0];
 
-        switch (commandType) {
-        case COMMAND_HELP:
-            showCommands();
-            break;
-        case COMMAND_ADD:
-            String commandArgs = commandTypeAndParams[1];
-            addTask(commandArgs);
-            break;
-        case COMMAND_LIST:
-            showList();
-            break;
-        case COMMAND_BYE:
-            exitProgram();
-            break;
-        default:
-            showInvalidCommandMessage();
-            break;
+            switch (commandType) {
+            case COMMAND_HELP:
+                showCommands();
+                break;
+            case COMMAND_ADD:
+                String commandArgs = commandTypeAndParams[1];
+                addTask(commandArgs);
+                break;
+            case COMMAND_LIST:
+                showList();
+                break;
+            case COMMAND_BYE:
+                exitProgram();
+                break;
+            default:
+                showInvalidCommandMessage();
+                break;
+            }
+        } catch (NullPointerException e) {
+            e.getMessage();
         }
     }
 
@@ -77,7 +81,7 @@ public class Duke {
         System.out.println("- bye: exit the program\n");
     }
 
-    private static String[] splitCommandWordAndArgs(String userInput) {
+    private static String[] splitCommandWordAndArgs(String userInput) throws NullPointerException {
         return userInput.split(" ", 2);
     }
 
